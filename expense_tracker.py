@@ -1,12 +1,8 @@
 import json
 
-
 print("Hello, Welcome To SpendWise.")
 print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
-print("To get started, Kindly see below what i can help you with")
-
-print("1. Log an expense")
-print("2. View expense history")
+print("To get started, Kindly choose an option between 1 - 3")
 
 # add date function
 def add_date():
@@ -33,10 +29,9 @@ def add_p_method():
     pay_method = input("how did you pay?\n(e.g. Cash, Debit Card, Credit Card)")
     return pay_method
 
-
-
 def log_expense ():
     expense = {}
+
     expense['date'] = add_date()
     expense['description'] = add_desc()
     expense['amount'] = add_amt()
@@ -44,7 +39,6 @@ def log_expense ():
     expense['payment_method'] = add_p_method()
 
     return expense
-# print(log_expense())
 
 # load expenses file
 def load_expenses():
@@ -54,17 +48,42 @@ def load_expenses():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
     
-# save expenses
+# save expenses to json
 def save_expenses(expenses):
     with open('spendwise.json', 'w') as file:
         json.dump(expenses, file)
 
+# view saved expenses
+def view_expenses():
+    expenses = load_expenses()
+    for expense in expenses:
+        print('---')
+        print(f"Date: {expense['date']}")
+        print(f"Description: {expense['description']}")
+        print(f"Amount: {expense['amount']}")
+        print(f"Category: {expense['category']}")
+        print(f"Payment Method: {expense['payment_method']}")
 
-expenses = load_expenses()
-new_expense = log_expense()
-expenses.append(new_expense)
-save_expenses(expenses)
-print('Expense save successfully!')
-print(load_expenses())
+def main():
+    while True:
+        print("\n1. Log an expense")
+        print("2. View Expense history")
+        print("3. Quit")
 
-print("Thanks for the info provided. \nWe are keeping track")
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            expenses = load_expenses()
+            new_expense = log_expense()
+            expenses.append(new_expense)
+            save_expenses(expenses)
+            print('Expense save successfully!')
+            print(load_expenses())
+        elif choice == "2":
+            view_expenses()
+        elif choice == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Try again.")
+main()
