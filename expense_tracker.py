@@ -1,3 +1,6 @@
+import json
+
+
 print("Hello, Welcome To SpendWise.")
 print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
 print("To get started, Kindly see below what i can help you with")
@@ -41,6 +44,27 @@ def log_expense ():
     expense['payment_method'] = add_p_method()
 
     return expense
-print(log_expense())
+# print(log_expense())
+
+# load expenses file
+def load_expenses():
+    try:
+        with open('spendwise.json', 'r') as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+    
+# save expenses
+def save_expenses(expenses):
+    with open('spendwise.json', 'w') as file:
+        json.dump(expenses, file)
+
+
+expenses = load_expenses()
+new_expense = log_expense()
+expenses.append(new_expense)
+save_expenses(expenses)
+print('Expense save successfully!')
+print(load_expenses())
 
 print("Thanks for the info provided. \nWe are keeping track")
