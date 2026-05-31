@@ -16,9 +16,17 @@ def add_desc():
 
 # add amount
 def add_amt():
-    amount = float(input("how much did you spend? "))
-    return amount
-
+    while True:
+        try:
+            amount = float(input("how much did you spend? "))
+            if amount <= 0:
+                print("Amount must be greater than zero. \nplease enter a valid amount")
+            else:
+                return amount
+        except (ValueError):
+            print("Invalid input. Please enter a number e.g.2500. Don't add amount in words nor add comma to numbers.")
+    
+    
 # add category
 def add_cat():
     category = input("in what category does your expenses fall in to?\n(e.g. Housing, Food, Utility, Transport, Black Tax)")
