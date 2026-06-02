@@ -1,4 +1,5 @@
 import json
+import datetime
 
 print("Hello, Welcome To SpendWise.")
 print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
@@ -6,10 +7,18 @@ print("To get started, Kindly choose an option between 1 - 3")
 
 # add date function
 def add_date():
-    date = input("Enter Date: ")
-    return date
+    while True:
+        date = input("Enter Date (DD/MM/YYYY) or press 1 for Today's Date: ")
+        if date == "1":
+            datetime.datetime.today().strftime("%d/%m/%Y")
+            return date
+        try:
+            datetime.datetime.strptime(date, "%d/%m/%Y")
+            return date
+        except ValueError:
+            print("Invalid format. Use DD/MM/YYYY e.g. 02/06/2026.")
 
-# add expense description
+# add expense description 
 def add_desc():
     exp_desc = input("your expenses was on what? ")
     return exp_desc
