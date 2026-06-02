@@ -8,10 +8,9 @@ print("To get started, Kindly choose an option between 1 - 3")
 # add date function
 def add_date():
     while True:
-        date = input("Enter Date (DD/MM/YYYY) or press 1 for Today's Date: ")
-        if date == "1":
-            datetime.datetime.today().strftime("%d/%m/%Y")
-            return date
+        date = input("Enter Date (DD/MM/YYYY) or press 1 for Today's Date: ").strip()
+        if date == "1":            
+            return datetime.datetime.today().strftime("%d/%m/%Y")
         try:
             datetime.datetime.strptime(date, "%d/%m/%Y")
             return date
@@ -20,8 +19,19 @@ def add_date():
 
 # add expense description 
 def add_desc():
-    exp_desc = input("your expenses was on what? ")
-    return exp_desc
+    while True:
+        exp_desc = input("What was the expense for? ").strip()
+        if exp_desc == "":
+            print("Description cannot be empty!!\n" \
+                "e.g. Bought Amala from Yakoyo")
+        elif len(exp_desc) < 3:
+            print("Description is too short!! Please provide a bit more detail.\n" \
+            "e.g. Bus fare.")
+        elif exp_desc.replace('.', '', 1).isdigit():
+            print('Description cannot be just numbers!! Please describe the expense.\n' \
+            'e.g. Bought amala from Yakoyo')
+        else:
+            return exp_desc
 
 # add amount
 def add_amt():
