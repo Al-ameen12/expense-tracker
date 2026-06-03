@@ -89,6 +89,7 @@ def add_p_method():
         except ValueError:
             print("Invalid!! Choose from the option provided")
 
+# log expense
 def log_expense ():
     expense = {}
 
@@ -120,9 +121,16 @@ def view_expenses():
         print('---')
         print(f"Date: {expense['date']}")
         print(f"Description: {expense['description']}")
-        print(f"Amount: {expense['amount']}")
+        print(f"Amount: ₦{expense['amount']:,.2f}")
         print(f"Category: {expense['category']}")
         print(f"Payment Method: {expense['payment_method']}")
+
+def total_amt():
+    total = 0
+    expenses = load_expenses()
+    for amt in expenses:
+       total += amt['amount'] 
+    return total
 
 def main():   
         print("Hello, Welcome To SpendWise.")
@@ -132,7 +140,8 @@ def main():
         while True:
             print("\n1. Log an expense")
             print("2. View Expense history")
-            print("3. Quit")
+            print("3. View Total Spending")
+            print("4. Quit")
 
             choice = input("Enter your choice: ")
 
@@ -141,11 +150,14 @@ def main():
                 new_expense = log_expense()
                 expenses.append(new_expense)
                 save_expenses(expenses)
-                print('Expense save successfully!')
+                print('************\nExpense save successfully!\n************')
             elif choice == "2":
+                print("************\nHere are what you have spent your money on\n************")
                 view_expenses()
             elif choice == "3":
-                print("Goodbye!")
+                print(f"************\nTotal Spending: ₦{total_amt():,.2f}\n************")
+            elif choice == "4":
+                print("************\nGoodbye!\n************")
                 break
             else:
                 print("Invalid choice. Try again.")

@@ -28,7 +28,7 @@ Deploy to Railway or Render, share a live link. SpendWise becomes a real product
 3. Run the app: `python expense_tracker.py`
 
 ## Technologies used so far:
-JSON, Python
+Python, JSON, datetime
 
 ## Project Flow:
 Collects and validates user input
