@@ -1,6 +1,11 @@
 import json
 import datetime
 
+
+CATEGORIES = ["Housing", "Utilities", "Food", "Transportation", 
+              "Communication & Internet", "Black Tax", "Education", 
+              "Healthcare", "Savings & Investments", "Others"]
+
 print("Hello, Welcome To SpendWise.")
 print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
 print("To get started, Kindly choose an option between 1 - 3")
@@ -48,8 +53,26 @@ def add_amt():
     
 # add category
 def add_cat():
-    category = input("in what category does your expenses fall in to?\n(e.g. Housing, Food, Utility, Transport, Black Tax)")
-    return category
+    while True:
+        try:
+            print("Your Expenses is in what category? ")
+            count = 0
+            for option in CATEGORIES:
+                count += 1
+                print(f"{count}. {option}")
+
+            category = int(input("Choose from the CATEGORIES above: ").strip())
+
+            # when users selects last option
+            if category == len(CATEGORIES):
+                category = input("Enter your category: ").strip()
+                return category
+            elif 1 <= category < len(CATEGORIES):
+                return CATEGORIES[category - 1]
+            else:
+                print("Wrong input. Please choose a number from the list.")  
+        except ValueError:
+            print("Wrong input, try again.")
 
 # add payment method
 def add_p_method():
