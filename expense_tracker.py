@@ -5,10 +5,7 @@ import datetime
 CATEGORIES = ["Housing", "Utilities", "Food", "Transportation", 
               "Communication & Internet", "Black Tax", "Education", 
               "Healthcare", "Savings & Investments", "Others"]
-
-print("Hello, Welcome To SpendWise.")
-print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
-print("To get started, Kindly choose an option between 1 - 3")
+PAYMENT_METHODS = ["Cash", "Debit Card", "Credit Card", "Bank Transfer"]
 
 # add date function
 def add_date():
@@ -76,8 +73,21 @@ def add_cat():
 
 # add payment method
 def add_p_method():
-    pay_method = input("how did you pay?\n(e.g. Cash, Debit Card, Credit Card)")
-    return pay_method
+    while True:
+        try:
+            count = 0
+            for option in PAYMENT_METHODS:
+                count += 1
+                print(f"{count}. {option}")
+
+            pay_method = int(input("Select mode of Payment: ").strip())
+
+            if 1 <= pay_method <= len(PAYMENT_METHODS):
+                return PAYMENT_METHODS[pay_method - 1]
+            else:
+                print("Invalid input. choose between range (1 -4).")
+        except ValueError:
+            print("Invalid!! Choose from the option provided")
 
 def log_expense ():
     expense = {}
@@ -114,26 +124,29 @@ def view_expenses():
         print(f"Category: {expense['category']}")
         print(f"Payment Method: {expense['payment_method']}")
 
-def main():
-    while True:
-        print("\n1. Log an expense")
-        print("2. View Expense history")
-        print("3. Quit")
+def main():   
+        print("Hello, Welcome To SpendWise.")
+        print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
+        print("To get started, Kindly choose an option between 1 - 3")
 
-        choice = input("Enter your choice: ")
+        while True:
+            print("\n1. Log an expense")
+            print("2. View Expense history")
+            print("3. Quit")
 
-        if choice == "1":
-            expenses = load_expenses()
-            new_expense = log_expense()
-            expenses.append(new_expense)
-            save_expenses(expenses)
-            print('Expense save successfully!')
-            print(load_expenses())
-        elif choice == "2":
-            view_expenses()
-        elif choice == "3":
-            print("Goodbye!")
-            break
-        else:
-            print("Invalid choice. Try again.")
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                expenses = load_expenses()
+                new_expense = log_expense()
+                expenses.append(new_expense)
+                save_expenses(expenses)
+                print('Expense save successfully!')
+            elif choice == "2":
+                view_expenses()
+            elif choice == "3":
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid choice. Try again.")
 main()
