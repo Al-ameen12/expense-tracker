@@ -132,6 +132,49 @@ def total_amt():
        total += amt['amount'] 
     return total
 
+
+
+# Filter by category
+def filter_by_category():
+    while True:
+        try:
+            expenses = load_expenses()
+
+            count = 0
+            for category_name in CATEGORIES:
+                count += 1
+                print(f"{count}. {category_name}")
+
+            choice = int(input(f"filter by which category?\n\n\
+            select from 1 to {len(CATEGORIES)}: ").strip())
+            # when users selects last option
+            if choice == len(CATEGORIES):
+                custom = input("Enter your category: ").strip()
+                filtered = [expense for expense in expenses if expense["category"] == custom]
+                return custom, filtered
+            elif 1 <= choice < len(CATEGORIES):
+                chosen_category = CATEGORIES[choice - 1]
+                filtered = [expense for expense in expenses if expense["category"] == chosen_category]
+                return chosen_category, filtered
+        except ValueError:
+            print(f"Invalid input!! Enter number between 1 to {len(CATEGORIES)}")
+
+# View filtered item
+def view_filtered():
+    chosen_category, filtered_expenses = filter_by_category()
+
+    if not filtered_expenses:
+        print(f"No expenses found for  {chosen_category}.")
+        return
+    print(f"--- Expenses for {chosen_category} ---")
+    for expense in filtered_expenses:
+        print('---')
+        print(f"Date: {expense['date']}")
+        print(f"Description: {expense['description']}")
+        print(f"Amount: ₦{expense['amount']:,.2f}")
+        print(f"Category: {expense['category']}")
+        print(f"Payment Method: {expense['payment_method']}")
+
 def main():   
         print("Hello, Welcome To SpendWise.")
         print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
@@ -141,7 +184,8 @@ def main():
             print("\n1. Log an expense")
             print("2. View Expense history")
             print("3. View Total Spending")
-            print("4. Quit")
+            print("4. View Filtered Expenses")
+            print("5. Quit")
 
             choice = input("Enter your choice: ")
 
@@ -157,6 +201,8 @@ def main():
             elif choice == "3":
                 print(f"************\nTotal Spending: ₦{total_amt():,.2f}\n************")
             elif choice == "4":
+                view_filtered()
+            elif choice == "5":
                 print("************\nGoodbye!\n************")
                 break
             else:
