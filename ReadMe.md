@@ -1,5 +1,5 @@
 # SpendWise
-> **Current Status:** Phase 1 complete. Phase 2 in progress.
+> **Current Status:** Phase 2 complete. Phase 3 in progress.
 
 SpendWise is an all Expense Tracker that helps you track your spending habit.
 
@@ -8,10 +8,13 @@ SpendWise is an all Expense Tracker that helps you track your spending habit.
 The project is divided into 5 phases
 
 ### Phase 1 — Core CLI (✓)
-Log expense, view history, persist to JSON
+Log expense, view history, save to JSON
 
-### Phase 2 — Smarter CLI
+### Phase 2 — Smarter CLI (✓)
 Total spending, filter by category, delete an expense, input validation
+#### Known Limitations
+- Expense history dumps all records at once in the terminal.
+    This will be resolved in Phase 4 with a proper web interfaces.
 
 ### Phase 3 — Analytics
 This is where pandas earns its place — monthly summaries, spending by category, trends. Your DataCamp work feeds directly into this.
