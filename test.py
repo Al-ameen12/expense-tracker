@@ -6,33 +6,59 @@ CATEGORIES = ["Housing", "Utilities", "Food", "Transportation",
               "Communication & Internet", "Black Tax", "Education", 
               "Healthcare", "Savings & Investments", "Others"]
 
+def delete_expenses():
+    while True:
+        try:
 
-def filter_by_category():
-    count = 0
-    for category_name in CATEGORIES:
-        count += 1
-        print(f"{count}. {category_name}")
+            count = 1
+            for expense in pool:
 
-    choice = int(input(f"filter by which category?\n\n\
-    select from 1 to {len(CATEGORIES)}: ").strip())
-     # when users selects last option
-    if choice == len(CATEGORIES):
-        choice = input("Enter your category: ").strip()
-        return "cannot extract data for now."
-    elif 1 <= choice < len(CATEGORIES):
-        chosen_category = CATEGORIES[choice - 1]
-        filtered = [expense for expense in pool if expense["category"] == chosen_category]
-        return filtered
+                print('-'*20)
+                print(f"Expense {count}.")
+                print('-'*20)
+                print(f"Date: {expense['date']}")
+                print(f"Description: {expense['description']}")
+                print(f"Amount: ₦{expense['amount']:,.2f}")
+                print(f"Category: {expense['category']}")
+                print(f"Payment Method: {expense['payment_method']}")
 
-# print(filter_by_category())
-def view_filtered():
-    filtered_expenses = filter_by_category()
-    for expense in filtered_expenses:
-        print('---')
-        print(f"Date: {expense['date']}")
-        print(f"Description: {expense['description']}")
-        print(f"Amount: ₦{expense['amount']:,.2f}")
-        print(f"Category: {expense['category']}")
-        print(f"Payment Method: {expense['payment_method']}")
+                count += 1
+            delete_item = int(input("Enter the item to be deleted: ").strip())
 
-print(view_filtered())
+            if 1 <= delete_item <= len(pool):
+                deleted_expense = pool.pop(delete_item -1)
+                return f"Success! {deleted_expense['description']} expense has been deleted."
+            else:
+                return "Error! Invalid Selection number"
+        except:
+            print("Error encountered.")
+print(delete_expenses())
+
+
+# def delete_expenses():
+#     count = 1
+#     for expense in pool:
+#         print('-'*20)
+#         print(f"Expense {count}.")
+#         print('-'*20)
+#         print(f"Date: {expense['date']}")
+#         print(f"Description: {expense['description']}")
+#         print(f"Amount: ₦{expense['amount']:,.2f}")
+#         print(f"Category: {expense['category']}")
+#         print(f"Payment Method: {expense['payment_method']}")
+#         count += 1
+        
+#     delete_item = int(input("Enter the item to be deleted: ").strip())
+
+#     # Check if user input matches a displayed number (1 to 15)
+#     if 1 <= delete_item <= len(pool):
+#         # Shift back by 1 to target correct Python index (e.g., input 15 becomes index 14)
+#         deleted_expense = pool.pop(delete_item - 1)
+#         return f"Success: {deleted_expense['description']} has been deleted."
+#     else:
+#         return "Error: Invalid selection number."
+
+# print(delete_expenses())
+# # To verify it worked, print the pool length afterwards
+# print(f"Remaining items in pool: {len(pool)}")
+

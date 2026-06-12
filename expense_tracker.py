@@ -117,13 +117,17 @@ def save_expenses(expenses):
 # view saved expenses
 def view_expenses():
     expenses = load_expenses()
+    count = 1
     for expense in expenses:
-        print('---')
+        print('-'*20)
+        print(f"Expense {count}.")
+        print('-'*20)
         print(f"Date: {expense['date']}")
         print(f"Description: {expense['description']}")
         print(f"Amount: ₦{expense['amount']:,.2f}")
         print(f"Category: {expense['category']}")
         print(f"Payment Method: {expense['payment_method']}")
+        count += 1
 
 def total_amt():
     total = 0
@@ -175,6 +179,38 @@ def view_filtered():
         print(f"Category: {expense['category']}")
         print(f"Payment Method: {expense['payment_method']}")
 
+# Delete Expenses
+def delete_expenses():
+    expenses = load_expenses()
+
+    while True:
+        try:
+            count = 1
+            for expense in expenses:
+
+                print('-'*20)
+                print(f"Expense {count}.")
+                print('-'*20)
+                print(f"Date: {expense['date']}")
+                print(f"Description: {expense['description']}")
+                print(f"Amount: ₦{expense['amount']:,.2f}")
+                print(f"Category: {expense['category']}")
+                print(f"Payment Method: {expense['payment_method']}")
+
+                count += 1
+
+            delete_item = int(input("Enter the Expense to be deleted: ").strip())
+
+            if 1 <= delete_item <= len(expenses):
+                deleted_expense = expenses.pop(delete_item -1)
+                save_expenses(expenses)
+                return f"Success! \'{deleted_expense['description']}\' expense has been deleted."
+            else:
+                return "Error! Invalid Selection number"
+        except ValueError:
+            print("\nError encountered. Wrong Value Input. Pls try again\n")
+
+
 def main():   
         print("Hello, Welcome To SpendWise.")
         print("SpendWise is an all Expense Tracker that helps you track your spending habit.")
@@ -182,10 +218,11 @@ def main():
 
         while True:
             print("\n1. Log an expense")
-            print("2. View Expense history")
+            print("2. View Logged Expense or Expense history")
             print("3. View Total Spending")
-            print("4. View Filtered Expenses")
-            print("5. Quit")
+            print("4. Filter Expenses by Category")
+            print("5. Delete an Expense")
+            print("6. Quit")
 
             choice = input("Enter your choice: ")
 
@@ -203,6 +240,10 @@ def main():
             elif choice == "4":
                 view_filtered()
             elif choice == "5":
+                print("************\nDelete Expenses\n************")
+                result = delete_expenses()
+                print(result)
+            elif choice == "6":
                 print("************\nGoodbye!\n************")
                 break
             else:
